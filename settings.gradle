@@ -8,3 +8,10 @@ pluginManagement {
 plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
 }
+
+include 'main'
+include 'more_rarity'
+include 'extend_iss'
+include 'uncompleted_way_spellbook'
+include 'almost_one_attribute'
+include 'core'

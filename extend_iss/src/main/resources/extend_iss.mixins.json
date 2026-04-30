@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "com.friedfish.extend_iss.mixin",
+  "mixins": [
+    "InkItemMixin",
+    "SpellRarityMixin"
+  ],
+  "client": [
+  ],
+  "server": [
+  ],
+  "compatibilityLevel": "JAVA_21",
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

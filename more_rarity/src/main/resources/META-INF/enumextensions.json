@@ -1,0 +1,13 @@
+{
+  "entries": [
+    {
+    "enum": "net/minecraft/world/item/Rarity",
+    "name": "MORE_RARITY_CUSTOM",
+    "constructor": "(ILjava/lang/String;Lnet/minecraft/ChatFormatting;)V",
+    "parameters": {
+      "class": "com/friedfish/more_rarity/NewRarity",
+      "field": "CUSTOM_RARITY_ENUM_PROXY"
+      }
+    }
+  ]
+}
