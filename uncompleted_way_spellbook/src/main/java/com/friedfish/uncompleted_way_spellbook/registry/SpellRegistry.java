@@ -2,6 +2,7 @@ package com.friedfish.uncompleted_way_spellbook.registry;
 
 import com.friedfish.uncompleted_way_spellbook.UncompletedWaySpellbook;
 import com.friedfish.uncompleted_way_spellbook.content.spell.blood.BloodAreaSpell;
+import com.friedfish.uncompleted_way_spellbook.content.spell.blood.FilterSpell;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -20,4 +21,5 @@ public class SpellRegistry {
     }
 
     public static final Supplier<AbstractSpell> BLOOD_AREA = registerSpell(new BloodAreaSpell());
+    public static final Supplier<AbstractSpell> FILTER = registerSpell(new FilterSpell());
 }

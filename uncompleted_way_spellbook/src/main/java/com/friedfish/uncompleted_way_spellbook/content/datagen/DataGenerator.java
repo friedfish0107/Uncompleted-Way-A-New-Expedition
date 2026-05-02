@@ -18,5 +18,7 @@ public class DataGenerator {
         generator.addProvider(event.includeClient(),new ChineseLanguageProvider(output,"zh_cn"));
 
         generator.addProvider(event.includeClient(),new ItemModelProvider(output,existingFileHelper));
+
+        generator.addProvider(event.includeServer(),new RecipeProvider(output,lookupProvider));
     }
 }
