@@ -1,6 +1,7 @@
 package com.friedfish.uncompleted_way_spellbook.content.datagen;
 
 import com.friedfish.uncompleted_way_spellbook.UncompletedWaySpellbook;
+import com.friedfish.uncompleted_way_spellbook.registry.ItemRegistry;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -26,5 +27,6 @@ public class ItemModelProvider extends net.neoforged.neoforge.client.model.gener
                 .model(debugEnabled)
                 .end();
 
+        basicItem(ItemRegistry.OLD_SKULL_ZOMBIE.get());
     }
 }

@@ -14,6 +14,7 @@ import net.minecraft.core.Position;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.Blocks;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
@@ -24,7 +25,7 @@ import org.slf4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-@EventBusSubscriber(modid = UncompletedWaySpellbook.MODID)
+@EventBusSubscriber(Dist.CLIENT)
 public class FloatTextRender {
     public static final FloatTextRender instance=new FloatTextRender();
     private record RenderInfo(Component component, Position position, Matrix4f transformation,long expiryTick,int transTime,Matrix4f transTo){}
@@ -91,7 +92,7 @@ public class FloatTextRender {
                 poseStack.last().pose(), bufferSource,
                 Font.DisplayMode.NORMAL, 0, 15728880);
 
-        Minecraft.getInstance().getBlockRenderer().renderSingleBlock(Blocks.DIRT.defaultBlockState(),poseStack,bufferSource, LightTexture.FULL_BLOCK, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.solid());
+        //Minecraft.getInstance().getBlockRenderer().renderSingleBlock(Blocks.DIRT.defaultBlockState(),poseStack,bufferSource, LightTexture.FULL_BLOCK, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.solid());
 
         poseStack.popPose();
     }

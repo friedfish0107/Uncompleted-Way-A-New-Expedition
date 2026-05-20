@@ -1,4 +1,4 @@
-package com.friedfish.uncompleted_way_spellbook.content.recipe;
+package com.friedfish.uncompleted_way_spellbook.content.recipe.spell_filter;
 
 import com.friedfish.uncompleted_way_spellbook.core.recipe.ChanceBasedOutput;
 import com.mojang.serialization.Codec;

@@ -1,5 +1,6 @@
 package com.friedfish.uncompleted_way_spellbook.content.item.debug_item;
 
+import com.friedfish.uncompleted_way_spellbook.content.datagen.ItemTagProvider;
 import com.friedfish.uncompleted_way_spellbook.content.render.FloatTextRender;
 import com.friedfish.uncompleted_way_spellbook.core.util.AdventureInventoryHelper;
 import com.friedfish.uncompleted_way_spellbook.registry.ComponentRegistry;
@@ -7,6 +8,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -113,6 +115,9 @@ public class DebugItem extends Item {
         else{
             if(isEnabled(itemStack)&&getDebugType(itemStack)==6){
                 AdventureInventoryHelper.swapInventory(player);
+            }
+            if(isEnabled(itemStack)&&getDebugType(itemStack)==7){
+                //LogUtils.getLogger().debug(BuiltInRegistries.ITEM.getOrCreateTag(ItemTagProvider.));
             }
         }
 

@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 
 @Mod(value = UncompletedWayANewExpedition.MODID)
 public class UncompletedWayANewExpedition {
-    public static final String MODID="uncompleted_way_spellbook";
+    public static final String MODID="uwe";
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public UncompletedWayANewExpedition(IEventBus modEventBus, ModContainer modContainer) {

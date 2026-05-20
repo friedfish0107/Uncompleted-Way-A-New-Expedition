@@ -2,23 +2,35 @@ package com.friedfish.uncompleted_way_spellbook.content.compat.jei.category;
 
 import com.friedfish.uncompleted_way_spellbook.UncompletedWaySpellbook;
 import com.friedfish.uncompleted_way_spellbook.content.compat.jei.*;
-import com.friedfish.uncompleted_way_spellbook.content.recipe.SpellFilterRecipe;
-import com.friedfish.uncompleted_way_spellbook.content.spell.blood.FilterSpell;
+import com.friedfish.uncompleted_way_spellbook.content.recipe.spell_filter.SpellFilterRecipe;
+import com.friedfish.uncompleted_way_spellbook.content.spell.recipe.FilterSpell;
 import com.friedfish.uncompleted_way_spellbook.content.util.GuiGraphicsHelper;
 import com.friedfish.uncompleted_way_spellbook.core.recipe.ChanceBasedOutput;
+import com.mojang.blaze3d.platform.Lighting;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.client.model.data.ModelData;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -107,6 +119,9 @@ public class SpellFilterRecipeCategory implements IRecipeCategory<SpellFilterRec
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, SpellFilterRecipe recipe, IFocusGroup focuses) {
         ItemStack input = recipe.getInput();
+        Player player= Minecraft.getInstance().player;
+        float chanceFactor=recipe.getChanceFactor(player);
+        float countFactor=recipe.getCountFactor(player);
         List<ChanceBasedOutput> outputs = recipe.getOutputs();
 
         // 输入槽（固定位置）
@@ -121,11 +136,17 @@ public class SpellFilterRecipeCategory implements IRecipeCategory<SpellFilterRec
             int x = computeX(i, n);
             int y = computeY(i, n);
             ChanceBasedOutput output=outputs.get(i);
+            int minCount = output.getMinCount();
+            int maxCount = output.getMaxCount();
+            float chance = output.getChance();
+            int modifiedMaxCount=output.getmodifiedMaxCount(countFactor);
+            float modifiedChance=output.getmodifiedChance(chanceFactor);
+
             builder.addOutputSlot(x, y)
                     .setBackground(new ChanceSlotBackground(),0,0)
-                    .setOverlay(new ChanceSlotOverlay(output.getMinCount(),output.getMaxCount(),output.getChance()),0,0)
+                    .setOverlay(new ChanceSlotOverlay(minCount, maxCount, chance),0,0)
                     .addItemStack(output.getItemStack(1))
-                    .addRichTooltipCallback(new ChanceBasedResultTooltipCallback(output.getMinCount(),output.getMaxCount(),output.getChance()));
+                    .addRichTooltipCallback(new ChanceBasedResultTooltipCallback(minCount, maxCount, chance,modifiedMaxCount,modifiedChance));
         }
     }
 
@@ -134,12 +155,27 @@ public class SpellFilterRecipeCategory implements IRecipeCategory<SpellFilterRec
 
         GuiGraphicsHelper.renderArray(guiGraphics,WIDTH/2-11+ARRAY_OFFSET,HEIGHT/2-7);
 
-        /*
-        int n = recipe.getOutputLength();
-        for (int i = 0; i < n; i++) {
-            int x = computeX(i, n);
-            int y = computeY(i, n);
-            GuiGraphicsHelper.renderChanceSlot(guiGraphics,x-1,y-1);
-        }*/
+        Lighting.setupForEntityInInventory();
+
+        Minecraft minecraft = Minecraft.getInstance();
+        ItemStack stack = recipe.getInput();
+        PoseStack poseStack = guiGraphics.pose();
+        BakedModel bakedmodel = minecraft.getItemRenderer().getModel(stack,null,null,0);
+
+        poseStack.pushPose();
+
+        poseStack.translate(WIDTH/2/2-16, HEIGHT/2, 150);
+        poseStack.scale(40,-40,40);
+        poseStack.mulPose(Axis.XP.rotationDegrees(-15.5f));
+        //poseStack.mulPose(Axis.ZP.rotationDegrees(17f));
+
+        //poseStack.mulPose(Axis.YP.rotationDegrees(22.5f));
+
+
+        minecraft
+                .getItemRenderer()
+                .render(stack, ItemDisplayContext.GUI, false, poseStack, guiGraphics.bufferSource(), 15728880, OverlayTexture.NO_OVERLAY, bakedmodel);
+
+        poseStack.popPose();
     }
 }

@@ -13,7 +13,10 @@ import java.util.concurrent.CompletableFuture;
 
 public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
     private static final RegistrySetBuilder BUILDER=new RegistrySetBuilder()
+            .add(Registries.DIMENSION_TYPE, DimensionDataRegistry::bootstrapType)
+            .add(Registries.NOISE_SETTINGS,DimensionDataRegistry::bootstrapNoise)
             .add(Registries.LEVEL_STEM, DimensionDataRegistry::bootstrapStem);
+
     public RegistryDataGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, BUILDER, Set.of("minecraft", UncompletedWayANewExpedition.MODID));
     }

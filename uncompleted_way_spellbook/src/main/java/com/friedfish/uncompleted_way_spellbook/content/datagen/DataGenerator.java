@@ -20,5 +20,9 @@ public class DataGenerator {
         generator.addProvider(event.includeClient(),new ItemModelProvider(output,existingFileHelper));
 
         generator.addProvider(event.includeServer(),new RecipeProvider(output,lookupProvider));
+        BlockTagProvider blockTagProvider=new BlockTagProvider(output,lookupProvider,existingFileHelper);
+        generator.addProvider(event.includeServer(),blockTagProvider);
+
+        generator.addProvider(event.includeServer(),new ItemTagProvider(output,lookupProvider,blockTagProvider.contentsGetter(),existingFileHelper));
     }
 }

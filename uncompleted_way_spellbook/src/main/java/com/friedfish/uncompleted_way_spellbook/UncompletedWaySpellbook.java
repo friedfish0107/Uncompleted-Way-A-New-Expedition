@@ -24,6 +24,7 @@ public class UncompletedWaySpellbook {
         SpellRegistry.register(modEventBus);
         DataAttachmentRegistry.register(modEventBus);
         RecipeRegistry.register(modEventBus);
+        CreativeTabRegistry.register(modEventBus);
         //FluidRegistry.register(modEventBus);
 
         //LOGGER.debug("SpellRarities{}", (Object) SpellRarity.values());

@@ -46,12 +46,7 @@ authors="friedfish"
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-统一所有属性
-添加了新的属性，并把其他模组的属性替换成了这些(WIP)
-
-- 创伤加成
-- 受创减免
-
+未尽之路-新征程的主要修改点
 '''
 
 #enumExtensions="META-INF/enumextensions.json"
@@ -67,7 +62,6 @@ description='''
 
 # The coremods config file path is not configurable and is always loaded from META-INF/coremods.json
 
-# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.${mod_id}]] #optional
     # the modid of the dependency
     modId="neoforge" #mandatory
@@ -90,22 +84,19 @@ description='''
 [[dependencies.${mod_id}]]
     modId="minecraft"
     type="required"
-    # This version range declares a minimum of the current minecraft version up to but not including the next major version
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
 
-# Here's another dependency
 [[dependencies.${mod_id}]]
-    modId="irons_spellbooks"
-    type="optional"
-    # This version range declares a minimum of the current minecraft version up to but not including the next major version
-    #versionRange="{irons_spellbook_version}"
+    modId="ponder"
+    type="required"
+    #versionRange="${minecraft_version_range}"
     ordering="AFTER"
     side="BOTH"
-
-# Features are specific properties of the game environment, that you may want to declare you require. This example declares
-# that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
-# stop your mod loading on the server for example.
-#[features.${mod_id}]
-#openGLVersion="[3.2,)"
+[[dependencies.${mod_id}]]
+    modId="uncompleted_way_spellbook"
+    type="required"
+    #versionRange="${minecraft_version_range}"
+    ordering="BEFORE"
+    side="BOTH"

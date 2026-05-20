@@ -1,12 +1,12 @@
-package com.friedfish.uncompleted_way_spellbook.content.recipe;
+package com.friedfish.uncompleted_way_spellbook.content.recipe.spell_filter;
 
 import com.friedfish.uncompleted_way_spellbook.core.recipe.ChanceBasedOutput;
 import com.friedfish.uncompleted_way_spellbook.registry.RecipeRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -82,7 +82,7 @@ public class SpellFilterRecipe implements Recipe<SpellFilterRecipeInput> {
         return blockState.getBlock().asItem().getDefaultInstance();
     }
 
-    public List<ItemStack> getResults(RandomSource randomSource, float chanceFactor, int extraCount){
+    public List<ItemStack> getResults(RandomSource randomSource, float chanceFactor, float extraCount){
         List<ItemStack> result=new ArrayList<>();
         outputs.forEach(e->result.add(e.rollItemStack(randomSource,chanceFactor,extraCount)));
         return result;
@@ -90,5 +90,13 @@ public class SpellFilterRecipe implements Recipe<SpellFilterRecipeInput> {
 
     public List<ItemStack> getResults(RandomSource randomSource){
         return getResults(randomSource,1,0);
+    }
+
+    public float getChanceFactor(Player player) {
+        return player.getLuck();
+    }
+
+    public float getCountFactor(Player player) {
+        return player.getLuck();
     }
 }

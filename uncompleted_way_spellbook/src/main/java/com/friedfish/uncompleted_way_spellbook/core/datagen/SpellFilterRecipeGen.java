@@ -1,6 +1,6 @@
 package com.friedfish.uncompleted_way_spellbook.core.datagen;
 
-import com.friedfish.uncompleted_way_spellbook.content.recipe.SpellFilterRecipe;
+import com.friedfish.uncompleted_way_spellbook.content.recipe.spell_filter.SpellFilterRecipe;
 import com.friedfish.uncompleted_way_spellbook.core.recipe.ChanceBasedOutput;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
@@ -55,7 +55,7 @@ public class SpellFilterRecipeGen extends SimpleRecipeBuilder {
         this.criteria.forEach(advancement::addCriterion);
 
         SpellFilterRecipe recipe = new SpellFilterRecipe(blockState, outputs, level);
-        recipeOutput.accept(id, recipe, advancement.build(id.withPrefix("recipes/")));
+        recipeOutput.accept(id.withPrefix("filter_"), recipe, advancement.build(id.withPrefix("recipes/")));
     }
 
     // ---- Builder ----
@@ -73,6 +73,10 @@ public class SpellFilterRecipeGen extends SimpleRecipeBuilder {
 
         public Builder addOutput(Item item,int minCount,int maxCount,float chance){
             return addOutput(new ChanceBasedOutput(item,minCount,maxCount,chance));
+        }
+
+        public Builder addOutput(Item item,int minCount,int maxCount,float chance,float extraCountFactor, float extraChanceFactor){
+            return addOutput(new ChanceBasedOutput(item,minCount,maxCount,chance,extraCountFactor,extraChanceFactor));
         }
 
         /** 添加一个输出 */

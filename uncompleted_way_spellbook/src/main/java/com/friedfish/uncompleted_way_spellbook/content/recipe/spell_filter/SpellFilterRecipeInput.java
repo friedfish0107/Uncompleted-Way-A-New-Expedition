@@ -1,4 +1,4 @@
-package com.friedfish.uncompleted_way_spellbook.content.recipe;
+package com.friedfish.uncompleted_way_spellbook.content.recipe.spell_filter;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeInput;
