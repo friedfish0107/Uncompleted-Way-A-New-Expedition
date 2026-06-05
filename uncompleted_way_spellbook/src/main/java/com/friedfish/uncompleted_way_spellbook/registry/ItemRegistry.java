@@ -58,6 +58,13 @@ public class ItemRegistry {
                             ))))
             .withAttributes(CuriosSlotString.HEAD_SLOT,new AttributeContainer(Attributes.ARMOR,2, AttributeModifier.Operation.ADD_VALUE))
     );
+    public static final DeferredHolder<Item,Item> MATTER=ITEMS.register("matter",()->new Item(new Item.Properties().stacksTo(99)));
+    public static final DeferredHolder<Item,Item> QUICKLIME_DUST=ITEMS.register("quicklime_dust",()->new QuickLimeItem(new Item.Properties()));
+    public static final DeferredHolder<Item,Item> QUICKLIME_DUST_PILE=ITEMS.register("quicklime_dust_pile",()->new TooltipItem(new Item.Properties()));
+    public static final DeferredHolder<Item,Item> SLAKED_LIME_DUST=ITEMS.register("slaked_lime_dust",()->new SlakedLimeItem(new Item.Properties()));
+    public static final DeferredHolder<Item,Item> SLAKED_LIME_DUST_PILE=ITEMS.register("slaked_lime_dust_pile",()->new TooltipItem(new Item.Properties()));
+    public static final DeferredHolder<Item,Item> CALCIUM_CARBONATE_DUST=ITEMS.register("calcium_carbonate_dust",()->new TooltipItem(new Item.Properties()));
+    public static final DeferredHolder<Item,Item> CALCIUM_CARBONATE_DUST_PILE=ITEMS.register("calcium_carbonate_dust_pile",()->new TooltipItem(new Item.Properties()));
     public static Collection<DeferredHolder<Item, ? extends Item>> getAllUWSItem(){
         return ITEMS.getEntries();
     }

@@ -1,0 +1,11 @@
+{
+  "type": "uncompleted_way_spellbook:infuse_mana",
+  "cost": 6,
+  "input": {
+    "tag": "irons_spellbooks:arcane_ingot_base"
+  },
+  "result": {
+    "count": 1,
+    "id": "irons_spellbooks:arcane_ingot"
+  }
+}

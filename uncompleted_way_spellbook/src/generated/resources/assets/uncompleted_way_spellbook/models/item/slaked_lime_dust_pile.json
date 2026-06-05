@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "uncompleted_way_spellbook:item/slaked_lime_dust_pile"
+  }
+}

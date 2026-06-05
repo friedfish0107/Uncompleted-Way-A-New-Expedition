@@ -9,6 +9,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ItemRegistry {
     private static final DeferredRegister<Item> ITEMS=DeferredRegister.create(Registries.ITEM, UncompletedWayANewExpedition.MODID);
+
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);
     }

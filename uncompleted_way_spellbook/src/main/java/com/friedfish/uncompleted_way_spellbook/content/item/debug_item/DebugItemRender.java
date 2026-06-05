@@ -3,7 +3,9 @@ package com.friedfish.uncompleted_way_spellbook.content.item.debug_item;
 import com.friedfish.uncompleted_way_spellbook.UncompletedWaySpellbook;
 import com.friedfish.uncompleted_way_spellbook.content.render.FloatTextRender;
 import com.friedfish.uncompleted_way_spellbook.registry.ItemRegistry;
+import com.mojang.blaze3d.platform.Window;
 import com.mojang.logging.LogUtils;
+import com.mojang.math.Axis;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -22,6 +24,8 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.IItemDecorator;
 import net.neoforged.neoforge.client.event.RegisterItemDecorationsEvent;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.client.event.ViewportEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -85,11 +89,39 @@ public class DebugItemRender {
                 //.rotate(new AxisAngle4f(90f,)));
 
                 Matrix4f original = new Matrix4f(transformation);  // 原始缩放（0.02~0.05）
-                Matrix4f target = new Matrix4f(transformation).scale(1.5f); // 独立副本，放大2倍
+                Matrix4f target = new Matrix4f(transformation).translate(0,scale/2,0).scale(15f); // 独立副本，放大2倍
 
 
-                FloatTextRender.renderFloatText(Component.literal(String.valueOf(event.getNewDamage())), pos, original, level.getGameTime() + 1000,1000,target);
+                FloatTextRender.renderFloatText(Component.literal(String.valueOf(event.getNewDamage())), pos, original, level.getGameTime() + 60,60,target);
             }
         }
+    }
+    private static float warpTime = 0f;      // 动画进度 0→1→0
+    private static boolean warping = false;
+    public static void startWarp() {
+        warping = true;
+        warpTime = 0f;
+    }
+    @SubscribeEvent
+    public static void onRenderLevel(ViewportEvent.ComputeFov event) {
+        // 只在世界渲染阶段（不包括手和UI）应用效果
+        //if (event.getStage() != RenderLevelStageEvent.Stage.) return;
+        if (!warping) return;
+
+        // 更新动画进度
+        warpTime += (float) event.getPartialTick();// 每帧增加
+        float t = warpTime / 2000f;            // 持续20 tick
+        if (t >= 1f) {
+            warping = false;                 // 动画结束
+            return;
+        }
+
+        // 缩放因子：开始为1，中间最小（0.2），最后回到1
+        float f2=Mth.sin(Mth.PI*t);
+        float lerp = f2*f2*f2; // 平滑曲线
+        // 或者光速飞船效果：从1迅速降到0.2再弹回
+        // scale = t < 0.3f ? 1 - t / 0.3f * 0.8f : 0.2f + (t - 0.3f) / 0.7f * 0.8f;
+
+        event.setFOV(Mth.lerp(lerp,event.getFOV(),180));
     }
 }

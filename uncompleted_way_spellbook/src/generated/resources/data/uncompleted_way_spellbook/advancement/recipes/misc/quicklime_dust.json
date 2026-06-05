@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "uncompleted_way_spellbook:quicklime_dust"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_uncompleted_way_spellbook:quicklime_dust_pile": {
+      "conditions": {
+        "items": [
+          {
+            "items": "uncompleted_way_spellbook:quicklime_dust_pile"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_uncompleted_way_spellbook:quicklime_dust_pile"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "uncompleted_way_spellbook:quicklime_dust"
+    ]
+  }
+}

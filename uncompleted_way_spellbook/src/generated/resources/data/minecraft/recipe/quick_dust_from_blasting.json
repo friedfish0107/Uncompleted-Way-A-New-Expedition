@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 400,
+  "experience": 1.0,
+  "ingredient": {
+    "item": "minecraft:calcite"
+  },
+  "result": {
+    "count": 4,
+    "id": "uncompleted_way_spellbook:quicklime_dust"
+  }
+}

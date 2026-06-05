@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "irons_spellbooks:book_stack"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:book"
+  }
+}

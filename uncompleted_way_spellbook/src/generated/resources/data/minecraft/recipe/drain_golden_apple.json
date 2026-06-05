@@ -1,0 +1,11 @@
+{
+  "type": "uncompleted_way_spellbook:drain_mana",
+  "income": 64,
+  "input": {
+    "item": "minecraft:enchanted_golden_apple"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:golden_apple"
+  }
+}

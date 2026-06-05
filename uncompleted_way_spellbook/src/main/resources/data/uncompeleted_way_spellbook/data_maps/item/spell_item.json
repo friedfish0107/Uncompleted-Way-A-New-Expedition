@@ -1,0 +1,9 @@
+{
+  "values": {
+    "minecraft:crafting_table": {
+      "value": {
+        "spell": "uncompleted_way_spellbook:open_crafting_table"
+      }
+    }
+  }
+}

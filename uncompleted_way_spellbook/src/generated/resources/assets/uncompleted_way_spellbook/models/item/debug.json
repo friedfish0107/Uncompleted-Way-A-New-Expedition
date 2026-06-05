@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "uncompleted_way_spellbook:item/debug_enabled",
+      "predicate": {
+        "uncompleted_way_spellbook:enabled": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "uncompleted_way_spellbook:item/debug_off"
+  }
+}

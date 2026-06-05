@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "irons_spellbooks:arcane_essence"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    " AS",
+    " S ",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "uncompleted_way_spellbook:stick_staff"
+  }
+}

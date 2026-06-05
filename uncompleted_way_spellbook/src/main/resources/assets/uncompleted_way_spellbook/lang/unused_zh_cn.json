@@ -1,0 +1,16 @@
+{
+    "school.uwe.generic": "通用",
+    "school.uwe.bit": "原子",
+    "spell.uwe.inscribe": "注魔",
+    "spell.uwe.inscribe.guide": "测试文本",
+    "spell.uwe.digs": "推土机",
+    "spell.uwe.digs.guide": "一次一个？不！一次一片！像挖冰淇淋一样挖石头，从此告别镐子敲打\n　　　　　　　　　　　——通用公司",
+    "ui.uwe.description.0": "测试文本0%s",
+    "advancements.uwe.root.title": "未尽之路-新征程",
+    "advancements.uwe.root.description": "新征程成就页面\n省略介绍",
+    "advancements.adventure.book_pile.title": "遗弃书堆",
+    "advancements.adventure.book_pile.description": "发现被遗弃的书堆，传说有人在附近目击到漂浮的书",
+    "advancements.story.mine_stone.title.new": "新·石器时代",
+    "advancements.story.mine_stone.description.new": "以法代镐，金石瞬破\n点石成掘，人人必备\n(本进度由通用公司付费添加)",
+    "uwe.tip.misc.test_tip": "测试测试，这里是测试tip\n喂喂，能听到么"
+}

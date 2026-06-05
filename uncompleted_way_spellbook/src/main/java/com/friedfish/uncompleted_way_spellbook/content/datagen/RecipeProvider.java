@@ -1,5 +1,6 @@
 package com.friedfish.uncompleted_way_spellbook.content.datagen;
 
+import com.friedfish.uncompleted_way_spellbook.content.item.QuickLimeItem;
 import com.friedfish.uncompleted_way_spellbook.content.util.ModCompatHelper;
 import com.friedfish.uncompleted_way_spellbook.core.datagen.DrainManaRecipeGen;
 import com.friedfish.uncompleted_way_spellbook.core.datagen.InfuseManaRecipeGen;
@@ -10,13 +11,12 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.*;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.BlastingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.concurrent.CompletableFuture;
@@ -63,5 +63,38 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .define('S',Items.STICK)
                 .unlockedBy("has_arcane_essence",has(io.redspace.ironsspellbooks.registries.ItemRegistry.ARCANE_ESSENCE.get()))
                 .save(output);
+
+        SimpleCookingRecipeBuilder.blasting(
+                Ingredient.of(Items.CALCITE),
+                RecipeCategory.MISC,
+                ItemRegistry.QUICKLIME_DUST.get().getDefaultInstance().copyWithCount(4),
+                1f,
+                400
+        )
+                .unlockedBy("has_calcite",has(Items.CALCITE))
+                .save(output,"quick_dust_from_blasting");
+
+        SimpleCookingRecipeBuilder.blasting(
+                Ingredient.of(Items.STONE),
+                RecipeCategory.MISC,
+                ItemRegistry.QUICKLIME_DUST_PILE.get(),
+                0.1f,
+                100
+        )
+                .unlockedBy("has_stone",has(Items.STONE))
+                .save(output,"quick_dust_pile_from_blasting");
+
+        fourToOne(ItemRegistry.QUICKLIME_DUST_PILE.get(),ItemRegistry.QUICKLIME_DUST.get(),output);
+        fourToOne(ItemRegistry.SLAKED_LIME_DUST_PILE.get(),ItemRegistry.SLAKED_LIME_DUST.get(),output);
+        fourToOne(ItemRegistry.CALCIUM_CARBONATE_DUST_PILE.get(),ItemRegistry.CALCIUM_CARBONATE_DUST.get(),output);
+        fourToOne(ItemRegistry.CALCIUM_CARBONATE_DUST.get(), Items.CALCITE,output);
+    }
+    private void fourToOne(ItemLike input,ItemLike output,RecipeOutput recipeOutput){
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC,output)
+                .pattern("AA ")
+                .pattern("AA ")
+                .define('A', input)
+                .unlockedBy("has_"+ input.asItem(),has(input))
+                .save(recipeOutput);
     }
 }

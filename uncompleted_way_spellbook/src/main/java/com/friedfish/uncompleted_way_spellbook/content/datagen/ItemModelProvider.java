@@ -27,6 +27,16 @@ public class ItemModelProvider extends net.neoforged.neoforge.client.model.gener
                 .model(debugEnabled)
                 .end();
 
+        basicItem(UncompletedWaySpellbook.id("scroll_craft"));
+        basicItem(UncompletedWaySpellbook.id("scroll_mine"));
+
         basicItem(ItemRegistry.OLD_SKULL_ZOMBIE.get());
+        basicItem(ItemRegistry.MATTER.get());
+        basicItem(ItemRegistry.QUICKLIME_DUST.get());
+        basicItem(ItemRegistry.QUICKLIME_DUST_PILE.get());
+        basicItem(ItemRegistry.SLAKED_LIME_DUST.get());
+        basicItem(ItemRegistry.SLAKED_LIME_DUST_PILE.get());
+        basicItem(ItemRegistry.CALCIUM_CARBONATE_DUST.get());
+        basicItem(ItemRegistry.CALCIUM_CARBONATE_DUST_PILE.get());
     }
 }

@@ -2,9 +2,11 @@ package com.friedfish.uncompleted_way_spellbook.registry;
 
 import com.friedfish.uncompleted_way_spellbook.UncompletedWaySpellbook;
 import com.friedfish.uncompleted_way_spellbook.content.entity.bloodAreaCircle.BloodAreaCircleEntity;
+import com.friedfish.uncompleted_way_spellbook.content.entity.mobs.spell.SummonedMinecart;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -19,5 +21,12 @@ public class EntityRegistry {
             ()->EntityType.Builder.<BloodAreaCircleEntity>of(BloodAreaCircleEntity::new, MobCategory.MISC)
                     .sized(32.0f,16.0f)
                     .build(UncompletedWaySpellbook.id("blood_area_circle").toString())
+    );
+    public static final DeferredHolder<EntityType<?>, EntityType<AbstractMinecart>> SUMMONED_MINECART=ENTITY_TYPES.register("summoned_minecart",
+            ()->EntityType.Builder.<AbstractMinecart>of(SummonedMinecart::new, MobCategory.MISC)
+                    .sized(0.98f,0.7f)
+                    .passengerAttachments(0.1875f)
+                    .clientTrackingRange(8)
+                    .build(UncompletedWaySpellbook.id("summoned_minecart").toString())
     );
 }

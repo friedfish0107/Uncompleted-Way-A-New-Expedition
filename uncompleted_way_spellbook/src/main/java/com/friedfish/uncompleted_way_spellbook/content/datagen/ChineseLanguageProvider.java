@@ -2,6 +2,7 @@ package com.friedfish.uncompleted_way_spellbook.content.datagen;
 
 import com.friedfish.uncompleted_way_spellbook.UncompletedWaySpellbook;
 import com.friedfish.uncompleted_way_spellbook.registry.ItemRegistry;
+import com.friedfish.uncompleted_way_spellbook.registry.SchoolRegistry;
 import com.friedfish.uncompleted_way_spellbook.registry.SpellRegistry;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
@@ -56,6 +57,22 @@ public class ChineseLanguageProvider extends LanguageProvider {
 
         this.add(ItemRegistry.OLD_SKULL_ZOMBIE.get().getDescriptionId(),"远古僵尸头");
 
+        this.add(ItemRegistry.MATTER.get().getDescriptionId(),"物质");
+
+        this.add(ItemRegistry.QUICKLIME_DUST.get().getDescriptionId(),"白灼灰");
+        this.add(ItemRegistry.QUICKLIME_DUST_PILE.get().getDescriptionId(),"小堆白灼灰");
+        this.add(ItemRegistry.SLAKED_LIME_DUST.get().getDescriptionId(),"余热灰");
+        this.add(ItemRegistry.SLAKED_LIME_DUST_PILE.get().getDescriptionId(),"小堆余热灰");
+        this.add(ItemRegistry.CALCIUM_CARBONATE_DUST.get().getDescriptionId(),"陈化石粉");
+        this.add(ItemRegistry.CALCIUM_CARBONATE_DUST_PILE.get().getDescriptionId(),"小堆陈化石粉");
+
+        this.add(ItemRegistry.QUICKLIME_DUST.get().getDescriptionId()+".desc1","CaO");
+        this.add(ItemRegistry.QUICKLIME_DUST_PILE.get().getDescriptionId()+".desc1","CaO");
+        this.add(ItemRegistry.SLAKED_LIME_DUST.get().getDescriptionId()+".desc1","Ca(OH)₂");
+        this.add(ItemRegistry.SLAKED_LIME_DUST_PILE.get().getDescriptionId()+".desc1","Ca(OH)₂");
+        this.add(ItemRegistry.CALCIUM_CARBONATE_DUST.get().getDescriptionId()+".desc1","CaCO₃");
+        this.add(ItemRegistry.CALCIUM_CARBONATE_DUST_PILE.get().getDescriptionId()+".desc1","CaCO₃");
+
         this.add("ui."+UncompletedWaySpellbook.MODID+".all_mana","消耗所有法力值");
         this.add("ui."+UncompletedWaySpellbook.MODID+".mana_per_effect","每消耗 %s 法力值");
         this.add("ui."+UncompletedWaySpellbook.MODID+".arcane_essence_count","获得奥术源质: %s");
@@ -67,6 +84,13 @@ public class ChineseLanguageProvider extends LanguageProvider {
         this.add(SpellRegistry.INFUSE_MANA.get().getComponentId(),"注魔");
         this.add(SpellRegistry.DRAIN_MANA.get().getComponentId(),"汲魔");
         this.add(SpellRegistry.FILTER.get().getComponentId(),"筛选");
+        this.add(SpellRegistry.OPEN_CRAFTING_TABLE.get().getComponentId(),"打开工作台");
+        this.add(SpellRegistry.BLAST.get().getComponentId(),"高温煅烧");
+        this.add(SpellRegistry.THROW_STONE.get().getComponentId(),"投掷石头");
+
+        this.add("school."+UncompletedWaySpellbook.MODID+".craft","合成");
+        this.add("school."+UncompletedWaySpellbook.MODID+".mine","矿物");
+
     }
 
 }

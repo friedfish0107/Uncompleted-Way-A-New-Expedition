@@ -2,6 +2,10 @@ package com.friedfish.uncompleted_way_spellbook.registry;
 
 import com.friedfish.uncompleted_way_spellbook.UncompletedWaySpellbook;
 import com.friedfish.uncompleted_way_spellbook.content.spell.blood.BloodAreaSpell;
+import com.friedfish.uncompleted_way_spellbook.content.spell.functional.BlastSpell;
+import com.friedfish.uncompleted_way_spellbook.content.spell.functional.OpenCraftingTableSpell;
+import com.friedfish.uncompleted_way_spellbook.content.spell.mine.SummonMinecartSpell;
+import com.friedfish.uncompleted_way_spellbook.content.spell.mine.ThrowStoneSpell;
 import com.friedfish.uncompleted_way_spellbook.content.spell.recipe.*;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import net.neoforged.bus.api.IEventBus;
@@ -25,4 +29,8 @@ public class SpellRegistry {
     public static final Supplier<AbstractSpell> CRYSTAL = registerSpell(new CrystalSpell());
     public static final Supplier<AbstractSpell> INFUSE_MANA = registerSpell(new InfuseManaSpell());
     public static final Supplier<AbstractSpell> DRAIN_MANA = registerSpell(new DrainManaSpell());
+    public static final Supplier<AbstractSpell> OPEN_CRAFTING_TABLE = registerSpell(new OpenCraftingTableSpell());
+    public static final Supplier<AbstractSpell> BLAST = registerSpell(new BlastSpell());
+    public static final Supplier<AbstractSpell> THROW_STONE = registerSpell(new ThrowStoneSpell());
+    public static final Supplier<AbstractSpell> SUMMON_MINECART = registerSpell(new SummonMinecartSpell());
 }

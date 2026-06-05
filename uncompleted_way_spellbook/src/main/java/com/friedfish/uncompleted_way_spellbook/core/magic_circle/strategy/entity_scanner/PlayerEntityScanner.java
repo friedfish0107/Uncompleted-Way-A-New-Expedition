@@ -15,7 +15,7 @@ public class PlayerEntityScanner implements IEntityScanner {
     @Override
     public List<Entity> scanEntities(MagicCircleContext ctx, List<Entity> entities) {
         List<? extends Entity> PlayerList = ctx.getLevel().getEntities(EntityType.PLAYER, ctx.getBoundBox(), Entity::isAlive);
-        LogFlags.onceLog(ctx.getBoundBox().toString());
+        //LogFlags.onceLog(ctx.getBoundBox().toString());
         return new ArrayList<>(PlayerList);
     }
 

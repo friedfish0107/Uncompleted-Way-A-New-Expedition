@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "uncompleted_way_spellbook:slaked_lime_dust_pile"
+    }
+  },
+  "pattern": [
+    "AA ",
+    "AA "
+  ],
+  "result": {
+    "count": 1,
+    "id": "uncompleted_way_spellbook:slaked_lime_dust"
+  }
+}

@@ -1,10 +1,12 @@
 package com.friedfish.uncompleted_way_spellbook.content.item.debug_item;
 
 import com.friedfish.uncompleted_way_spellbook.content.datagen.ItemTagProvider;
+import com.friedfish.uncompleted_way_spellbook.content.gui.overlay.ItemAnimationOverlay;
 import com.friedfish.uncompleted_way_spellbook.content.render.FloatTextRender;
 import com.friedfish.uncompleted_way_spellbook.core.util.AdventureInventoryHelper;
 import com.friedfish.uncompleted_way_spellbook.registry.ComponentRegistry;
 import com.mojang.logging.LogUtils;
+import io.redspace.ironsspellbooks.api.spells.SpellRarity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -17,6 +19,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -24,6 +27,7 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.slf4j.Logger;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class DebugItem extends Item {
@@ -79,6 +83,8 @@ public class DebugItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack itemStack=player.getItemInHand(usedHand);
 
+
+
         if(level.isClientSide){
             if(isEnabled(itemStack)&&getDebugType(itemStack)==3){
                 Minecraft minecraft=Minecraft.getInstance();
@@ -110,15 +116,29 @@ public class DebugItem extends Item {
             if(isEnabled(itemStack)&&getDebugType(itemStack)==5){
                 Minecraft.getInstance().gui.getChat().addMessage(Component.literal("test"));
             }
+            if(isEnabled(itemStack)&&getDebugType(itemStack)==7){
+                //Minecraft.getInstance().gameRenderer.displayItemActivation(player.getItemInHand(usedHand));
+                DebugItemRender.startWarp();
+            }
+            if(isEnabled(itemStack)&&getDebugType(itemStack)==8){
+                //Minecraft.getInstance().gameRenderer.displayItemActivation(player.getItemInHand(usedHand));
+                //ItemAnimationOverlay.addRenderItem(player.getItemInHand(usedHand),80, 1F,1F,ItemAnimationOverlay.REBOUND);
+                LOGGER.debug(Arrays.toString(SpellRarity.values()));
+            }
+            if(isEnabled(itemStack)&&getDebugType(itemStack)==9){
+                // 在需要播放动画的地方
+                ItemStack diamond = new ItemStack(Items.DIAMOND);
+                ItemStack netherite = new ItemStack(Items.NETHERITE_INGOT);
+                ItemAnimationOverlay.playSmithingAnimation(diamond,netherite);
+            }
             return InteractionResultHolder.pass(itemStack);
+
         }
         else{
             if(isEnabled(itemStack)&&getDebugType(itemStack)==6){
                 AdventureInventoryHelper.swapInventory(player);
             }
-            if(isEnabled(itemStack)&&getDebugType(itemStack)==7){
-                //LogUtils.getLogger().debug(BuiltInRegistries.ITEM.getOrCreateTag(ItemTagProvider.));
-            }
+
         }
 
 

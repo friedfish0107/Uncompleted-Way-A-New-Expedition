@@ -1,0 +1,4 @@
+// 1.21.1	2026-05-26T21:41:35.6548209	Tags for minecraft:item mod id uncompleted_way_spellbook
+f364e5e3aec72eed0d0ad0d80f50e122a850249b data/curios/tags/item/head.json
+cf16c3d293af91c9c2a8219986fac7ef93fca311 data/curios/tags/item/spellbook.json
+ac9e7c208d6afec1ede4fff81fed35257c015269 data/uncompleted_way_spellbook/tags/item/recipe_focus.json

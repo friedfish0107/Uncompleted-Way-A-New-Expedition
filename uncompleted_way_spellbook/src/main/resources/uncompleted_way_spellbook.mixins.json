@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "package": "com.friedfish.uncompleted_way_spellbook.mixin",
+  "mixins": [
+    "TooltipsUtilsMixin",
+    "SpellRarityInvoker",
+    "SpellRarityMixin"
+
+  ],
+  "client": [
+  ],
+  "server": [
+  ],
+  "compatibilityLevel": "JAVA_21",
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -27,16 +27,19 @@ import java.util.List;
 
 @EventBusSubscriber(Dist.CLIENT)
 public class FloatTextRender {
-    public static final FloatTextRender instance=new FloatTextRender();
-    private record RenderInfo(Component component, Position position, Matrix4f transformation,long expiryTick,int transTime,Matrix4f transTo){}
-    private static final Logger LOGGER= LogUtils.getLogger();
+    public static final FloatTextRender instance = new FloatTextRender();
 
-    List<RenderInfo>toRender=new ArrayList<>();
+    private record RenderInfo(Component component, Position position, Matrix4f transformation, long expiryTick,
+                              int transTime, Matrix4f transTo) {
+    }
+
+    private static final Logger LOGGER = LogUtils.getLogger();
+    List<RenderInfo> toRender = new ArrayList<>();
 
     @SubscribeEvent
     public static void onRenderLevelStage(RenderLevelStageEvent event) {
         if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_TRIPWIRE_BLOCKS) {
-            return; // 选择一个合适的渲染阶段
+            return;
         }
 
         Minecraft mc = Minecraft.getInstance();
@@ -45,68 +48,71 @@ public class FloatTextRender {
 
         PoseStack poseStack = event.getPoseStack();
         MultiBufferSource.BufferSource bufferSource = mc.renderBuffers().bufferSource();
+
         // 过期检查
-        FloatTextRender.instance.toRender.removeIf(info->mc.level.getGameTime() >= info.expiryTick);
+        FloatTextRender.instance.toRender.removeIf(info -> mc.level.getGameTime() >= info.expiryTick);
+
+        float partialTick = event.getPartialTick().getGameTimeDeltaPartialTick(!mc.isPaused());
 
         for (FloatTextRender.RenderInfo info : FloatTextRender.instance.toRender) {
-            double lerp=0;
-            if(info.transTime!=0) {
-                double leftTime=(double) (info.expiryTick-mc.level.getGameTime())-event.getPartialTick().getGameTimeDeltaTicks();
-                lerp=1.0F-leftTime/(double) info.transTime;
-            }
-
-            renderFloatingText(poseStack, bufferSource, info.component, info.position, info.transformation,info.transTo,lerp);
-            //Minecraft.getInstance().getBlockRenderer().renderBatched(Blocks.DIRT.defaultBlockState(), new BlockPos((int) info.position.x(), (int) info.position.y(), (int) info.position.z()), ;
-
+            renderFloatingText(poseStack, bufferSource, info, partialTick);
         }
 
-        bufferSource.endBatch(); // 提交缓冲区
+        bufferSource.endBatch();
     }
 
     private static void renderFloatingText(PoseStack poseStack, MultiBufferSource bufferSource,
-                                           Component component, Position position, Matrix4f transformation,Matrix4f transTo, double lerp) {
-        Camera camera = Minecraft.getInstance().gameRenderer.getMainCamera();
-        Font font = Minecraft.getInstance().font;
-       //LOGGER.debug(String.valueOf(lerp));
-        double dx = position.x() - camera.getPosition().x;
-        double dy = position.y() - camera.getPosition().y;
-        double dz = position.z() - camera.getPosition().z;
+                                           RenderInfo info, float partialTick) {
+        Minecraft mc = Minecraft.getInstance();
+        Camera camera = mc.gameRenderer.getMainCamera();
+        Font font = mc.font;
+
+        // 使用 partialTick 计算插值因子
+        double lerp = 0.0;
+        if (info.transTime != 0) {
+            double leftTime = (double) (info.expiryTick - mc.level.getGameTime()) - partialTick;
+            lerp = 1.0F - leftTime / (double) info.transTime;
+            lerp = Mth.clamp(lerp, 0.0, 1.0); // 确保范围
+        }
+
+        // 从初始变换到目标变换的插值矩阵
+        Matrix4f currentTransform = smoothLerp(info.transformation, info.transTo, lerp);
+
+        double dx = info.position.x() - camera.getPosition().x;
+        double dy = info.position.y() - camera.getPosition().y;
+        double dz = info.position.z() - camera.getPosition().z;
 
         poseStack.pushPose();
-        poseStack.translate((float) dx, (float) dy , (float) dz);
-        //poseStack.mulPose(transformation);
-        //Matrix4f mixed=transformation.lerp(transTo,lerp);
-        //LOGGER.debug(String.valueOf(smoothLerp(transformation,transTo,lerp)));
-        //LOGGER.debug(String.valueOf(lerp));
-        poseStack.mulPose(camera.rotation().scale(1));//面向玩家
-
-        float scale = 1F;
+        poseStack.translate((float) dx, (float) dy, (float) dz);
+        // 面向玩家
+        poseStack.mulPose(camera.rotation());
+        // 缩放与翻转
+        float scale = 1.0F;
         poseStack.scale(scale, -scale, scale);
-        poseStack.mulPose(smoothLerp(transformation,transTo,lerp));
+        // 应用插值后的自定义变换（不再叠加原始 transformation，避免双倍）
+        poseStack.mulPose(currentTransform);
 
-
-        int width = font.width(component);
+        int width = font.width(info.component);
         float xOffset = -width / 2.0F;
 
-        font.drawInBatch(component, xOffset, 0, 0xFFFFFF, false,
+        font.drawInBatch(info.component, xOffset, 0, 0xFFFFFF, false,
                 poseStack.last().pose(), bufferSource,
                 Font.DisplayMode.NORMAL, 0, 15728880);
-
-        //Minecraft.getInstance().getBlockRenderer().renderSingleBlock(Blocks.DIRT.defaultBlockState(),poseStack,bufferSource, LightTexture.FULL_BLOCK, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.solid());
 
         poseStack.popPose();
     }
 
-    public static void renderFloatText(Component component, Position position, Matrix4f transformation,long expiryTick){
-        instance.toRender.add(new RenderInfo(component,position,transformation,expiryTick,0,transformation));
+    public static void renderFloatText(Component component, Position position, Matrix4f transformation, long expiryTick) {
+        instance.toRender.add(new RenderInfo(component, position, transformation, expiryTick, 0, transformation));
     }
 
-    public static void renderFloatText(Component component, Position position, Matrix4f transformation,long expiryTick,int transTime,Matrix4f transTo){
-        instance.toRender.add(new RenderInfo(component,position,transformation,expiryTick,transTime,transTo));
+    public static void renderFloatText(Component component, Position position, Matrix4f transformation, long expiryTick,
+                                       int transTime, Matrix4f transTo) {
+        instance.toRender.add(new RenderInfo(component, position, transformation, expiryTick, transTime, transTo));
     }
-    private static Matrix4f smoothLerp(Matrix4f original,Matrix4f to,double lerp){
-        float u= (float)Mth.smoothstep(lerp);
 
+    private static Matrix4f smoothLerp(Matrix4f original, Matrix4f to, double lerp) {
+        float u = (float) Mth.smoothstep(lerp);
         return new Matrix4f(
                 Mth.lerp(u, original.m00(), to.m00()),
                 Mth.lerp(u, original.m01(), to.m01()),
