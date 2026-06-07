@@ -4,8 +4,6 @@ base {
     archivesName = mod_id
 }
 dependencies {
-    jarJar(project( ":more_rarity"))
-    //jarJar(project( ":extend_iss"))
     jarJar(project( ":uncompleted_way_spellbook"))
     jarJar(project( ":almost_one_attribute"))
     jarJar(project( ":core"))

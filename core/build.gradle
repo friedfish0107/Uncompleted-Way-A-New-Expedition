@@ -49,10 +49,15 @@ dependencies {
 
     runtimeOnly project(":uncompleted_way_spellbook")
     compileOnly project(":uncompleted_way_spellbook")
-
+    //铁魔法依赖
     compileOnly "io.redspace:irons_spellbooks:${irons_spellbook_version}"
-
+    //思索库依赖
     compileOnly("net.createmod.ponder:ponder-neoforge:$ponder_version+mc$minecraft_version")
     runtimeOnly("net.createmod.ponder:ponder-neoforge:$ponder_version+mc$minecraft_version")
+    //Curio库依赖
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
+    //神话属性依赖
+    //compileOnly "curse.maven:mythic-attributes-${mythic_attributes_id}"
 }
 

@@ -3,6 +3,7 @@ package com.friedfish.uncompleted_way_spellbook.registry;
 import com.friedfish.uncompleted_way_spellbook.UncompletedWaySpellbook;
 import com.friedfish.uncompleted_way_spellbook.content.entity.bloodAreaCircle.BloodAreaCircleEntity;
 import com.friedfish.uncompleted_way_spellbook.content.entity.mobs.spell.SummonedMinecart;
+import com.friedfish.uncompleted_way_spellbook.content.entity.mobs.spell.anvil_strike.AnvilStrikeProjectile;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -28,5 +29,10 @@ public class EntityRegistry {
                     .passengerAttachments(0.1875f)
                     .clientTrackingRange(8)
                     .build(UncompletedWaySpellbook.id("summoned_minecart").toString())
+    );
+    public static final DeferredHolder<EntityType<?>, EntityType<AnvilStrikeProjectile>> ANVIL_STRIKE_PROJECTILE=ENTITY_TYPES.register("anvil_strike",
+            ()->EntityType.Builder.<AnvilStrikeProjectile>of(AnvilStrikeProjectile::new, MobCategory.MISC)
+                    .sized(1f,1f)
+                    .build(UncompletedWaySpellbook.id("anvil_strike").toString())
     );
 }

@@ -4,6 +4,7 @@ import com.friedfish.uncompleted_way_spellbook.UncompletedWaySpellbook;
 import com.friedfish.uncompleted_way_spellbook.content.spell.blood.BloodAreaSpell;
 import com.friedfish.uncompleted_way_spellbook.content.spell.functional.BlastSpell;
 import com.friedfish.uncompleted_way_spellbook.content.spell.functional.OpenCraftingTableSpell;
+import com.friedfish.uncompleted_way_spellbook.content.spell.mine.AnvilStrikeSpell;
 import com.friedfish.uncompleted_way_spellbook.content.spell.mine.SummonMinecartSpell;
 import com.friedfish.uncompleted_way_spellbook.content.spell.mine.ThrowStoneSpell;
 import com.friedfish.uncompleted_way_spellbook.content.spell.recipe.*;
@@ -33,4 +34,5 @@ public class SpellRegistry {
     public static final Supplier<AbstractSpell> BLAST = registerSpell(new BlastSpell());
     public static final Supplier<AbstractSpell> THROW_STONE = registerSpell(new ThrowStoneSpell());
     public static final Supplier<AbstractSpell> SUMMON_MINECART = registerSpell(new SummonMinecartSpell());
+    public static final Supplier<AbstractSpell> ANVIL_STRIKE = registerSpell(new AnvilStrikeSpell());
 }

@@ -1,5 +1,6 @@
 package com.friedfish.uwe.content.datagen;
 
+import com.friedfish.uncompleted_way_spellbook.content.datagen.BlockTagProvider;
 import com.friedfish.uwe.content.datagen.ChineseLanguageProvider;
 import com.friedfish.uwe.content.datagen.EnglishLanguageProvider;
 import com.friedfish.uwe.UncompletedWayANewExpedition;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.List;
@@ -24,6 +26,9 @@ public class DataGenerators {
     public static void generate(GatherDataEvent event){
         DataGenerator generator=event.getGenerator();
         PackOutput output=event.getGenerator().getPackOutput();
+        ExistingFileHelper existingFileHelper=event.getExistingFileHelper();
+
+        String modid = UncompletedWayANewExpedition.MODID;
 
         CompletableFuture<HolderLookup.Provider> lookupProvider=event.getLookupProvider();
 
@@ -36,11 +41,19 @@ public class DataGenerators {
 
         generator.addProvider(event.includeServer(),new RecipeProvider(output,lookupProvider));
 
+        generator.addProvider(event.includeClient(),new ItemModelProvider(output,existingFileHelper));
+
         generator.addProvider(event.includeServer(),new LootTableProvider(
                 output,
                 Set.of(),
                 List.of(new LootTableProvider.SubProviderEntry(LootTableProviders.Entity::new, LootContextParamSets.ENTITY)),
                 lookupProvider
         ));
+
+        generator.addProvider(event.includeServer(),new CuriosDataProvider(modid,output,existingFileHelper,lookupProvider));
+
+        UWEBlockTagProvider blockTagProvider=new UWEBlockTagProvider(output,lookupProvider,existingFileHelper);
+        generator.addProvider(event.includeServer(),blockTagProvider);
+        generator.addProvider(event.includeServer(),new ItemTagProvider(output,lookupProvider, blockTagProvider.contentsGetter(),existingFileHelper));
     }
 }
